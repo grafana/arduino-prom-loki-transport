@@ -5,7 +5,6 @@
 
 #include "PLTransport.h"
 #include <MKRGSM.h>
-#include <ArduinoBearSSLConfig.h>
 #include <ArduinoBearSSL.h>
 
 class MKRGSM1400Client : public PLTransport

@@ -7,7 +7,6 @@
 #include <WiFi.h>
 #include <time.h>
 #include <esp_sntp.h>
-#include <ArduinoBearSSLConfig.h>
 #include <ArduinoBearSSL.h>
 
 class ESP32Client : public PLTransport

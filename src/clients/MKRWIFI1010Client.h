@@ -5,7 +5,6 @@
 
 #include "PLTransport.h"
 #include <WiFiNINA.h>
-#include <ArduinoBearSSLConfig.h>
 #include <ArduinoBearSSL.h>
 
 
