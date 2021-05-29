@@ -4,7 +4,7 @@
 
 Provides an abstraction over network connectivity for the [GrafanaLoki](https://github.com/grafana/loki-arduino) and [PrometheusArduino](https://github.com/grafana/prometheus-arduino) libraries.
 
-The idea for this library is to encapsulate the work around connecting to a communication network (Wifi, GSM, etc) and using SSL for connections in a consistent way to make using the Loki and Prometheus libraries easier to use.
+The idea for this library is to encapsulate the work around connecting to a network (Wifi, GSM, etc) and using SSL for connections in a consistent way to make using the Loki and Prometheus libraries easier to use.
 
 The following interface is provided for all the hardware supported by this library:
 

@@ -2,34 +2,31 @@
 #include "ESP32Client.h"
 
 ESP32Client::ESP32Client() {
+    _clients = new Client * [_maxClients];
 }
 
 ESP32Client::~ESP32Client() {
+    for (int i = _numClients - 1; i >= 0; i--) {
+        delete _clients[i];
+    }
+    delete[] _clients;
+}
 
-    if (_wifiClient) {
-        delete _wifiClient;
-    }
-    if (_client) {
-        delete _client;
-    }
+unsigned long getTime() {
+    struct timeval tv_now;
+    gettimeofday(&tv_now, NULL);
+    return (unsigned long)tv_now.tv_sec;
 }
 
 bool ESP32Client::_begin() {
     //TODO error check required fields
 
-    WiFiClient* _wifiClient = new WiFiClient;
-    if (_useTls) {
-        if (_TAs && _numTAs > 0) {
-            _client = new SSLClient(*_wifiClient, _TAs, _numTAs, A5, 1);
-        }
-        else {
-            DEBUG_PRINT("setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)");
-            return false;
-        }
+    if (_TAs && _numTAs > 0 && !_useTls) {
+        errmsg = "setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
+        return false;
     }
-    else {
-        _client = _wifiClient;
-    }
+
+    ArduinoBearSSL.onGetTime(getTime);
 
     DEBUG_PRINTLN("Connecting Wifi");
 
@@ -50,6 +47,27 @@ bool ESP32Client::_begin() {
     DEBUG_PRINTLN("Time set succesfully");
 
     return true;
+}
+
+Client* ESP32Client::getClient() {
+
+    if (_numClients >= _maxClients) {
+        errmsg = "Too many clients requested, increase maxClients";
+        return nullptr;
+    }
+
+    WiFiClient* wifiClient = new WiFiClient;
+    _clients[_numClients] = wifiClient;
+    _numClients++;
+    if (_useTls) {
+        BearSSLClient* sslClient = new BearSSLClient(*wifiClient, _TAs, _numTAs);
+        _clients[_numClients] = sslClient;
+        _numClients++;
+        return sslClient;
+    }
+    else {
+        return wifiClient;
+    }
 }
 
 

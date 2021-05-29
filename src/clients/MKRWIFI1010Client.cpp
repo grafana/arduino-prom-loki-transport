@@ -2,35 +2,57 @@
 
 #include "MKRWIFI1010Client.h"
 
+// Need a static member function to use for BearSSL's getTime.
+unsigned long getTime() {
+    return WiFi.getTime();
+}
 
 MKRWIFI1010Client::MKRWIFI1010Client() {
+    _clients = new Client * [_maxClients];
 };
 
 MKRWIFI1010Client::~MKRWIFI1010Client() {
-    if (_wifiClient) {
-        delete _wifiClient;
+    for (int i = _numClients - 1; i >= 0; i--) {
+        delete _clients[i];
     }
-    if (_client) {
-        delete _client;
-    }
+    delete[] _clients;
 };
 
 bool MKRWIFI1010Client::_begin() {
     //TODO error check required fields
 
-    _wifiClient = new WiFiClient();
-    if (_useTls) {
-        DEBUG_PRINTLN("Using SSL Client");
-        const int rand_pin = A5;
-        _client = new SSLClient(*_wifiClient, _TAs, _numTAs, rand_pin, 1, SSLClient::SSL_WARN);
-    }
-    else {
-        _client = _wifiClient;
+    if (_TAs && _numTAs > 0 && !_useTls) {
+        errmsg = "setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
+        return false;
     }
 
+    ArduinoBearSSL.onGetTime(getTime);
+
     _connect();
+
     return true;
 };
+
+Client* MKRWIFI1010Client::getClient() {
+
+    if (_numClients >= _maxClients) {
+        errmsg = "Too many clients requested, increase maxClients";
+        return nullptr;
+    }
+
+    WiFiClient* wifiClient = new WiFiClient;
+    _clients[_numClients] = wifiClient;
+    _numClients++;
+    if (_useTls) {
+        BearSSLClient* sslClient = new BearSSLClient(*wifiClient, _TAs, _numTAs);
+        _clients[_numClients] = sslClient;
+        _numClients++;
+        return sslClient;
+    }
+    else {
+        return wifiClient;
+    }
+}
 
 int64_t MKRWIFI1010Client::getTimeMillis() {
     //FIXME
@@ -49,7 +71,7 @@ int64_t MKRWIFI1010Client::getTimeMillis() {
         return 0;
     }
     else {
-        return epoch * 1000 * 1000 * 1000;
+        return epoch * 1000;
     }
 };
 

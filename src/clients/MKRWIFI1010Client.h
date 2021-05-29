@@ -5,7 +5,8 @@
 
 #include "PLTransport.h"
 #include <WiFiNINA.h>
-#include <SSLClient.h>
+#include <ArduinoBearSSLConfig.h>
+#include <ArduinoBearSSL.h>
 
 
 class MKRWIFI1010Client : public PLTransport {
@@ -17,13 +18,15 @@ public:
     bool checkAndReconnectConnection();
     bool disconnect();
     int64_t getTimeMillis();
+    Client* getClient();
 
 protected:
     bool _begin();
 
 private:
+    Client** _clients = nullptr;
+    uint8_t _numClients = 0;
     int _status;
-    Client* _wifiClient;
     bool _connected;
     void _connect();
 };

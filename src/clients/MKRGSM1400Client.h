@@ -5,7 +5,8 @@
 
 #include "PLTransport.h"
 #include <MKRGSM.h>
-#include <SSLClient.h>
+#include <ArduinoBearSSLConfig.h>
+#include <ArduinoBearSSL.h>
 
 class MKRGSM1400Client : public PLTransport
 {
@@ -17,11 +18,14 @@ public:
     bool checkAndReconnectConnection();
     bool disconnect();
     int64_t getTimeMillis();
+    Client* getClient();
 
 protected:
     bool _begin();
 
 private:
+    Client** _clients = nullptr;
+    uint8_t _numClients = 0;
     bool _connected;
     void _connect();
     GPRS* _gprs;
