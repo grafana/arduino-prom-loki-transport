@@ -70,6 +70,10 @@ Client* ESP32Client::getClient() {
     }
 }
 
+uint16_t ESP32Client::getConnectCount() {
+    return _connectCount;
+}
+
 
 int64_t ESP32Client::getTimeMillis() {
     struct timeval tv_now;
@@ -109,6 +113,7 @@ void ESP32Client::_connect() {
 
     DEBUG_PRINT("IP address: ");
     DEBUG_PRINTLN(WiFi.localIP());
+    _connectCount++;
 }
 
 

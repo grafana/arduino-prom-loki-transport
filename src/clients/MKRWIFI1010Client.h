@@ -18,6 +18,7 @@ public:
     bool disconnect();
     int64_t getTimeMillis();
     Client* getClient();
+    uint16_t getConnectCount();
 
 protected:
     bool _begin();
@@ -28,6 +29,7 @@ private:
     int _status;
     bool _connected;
     void _connect();
+    uint16_t connectCount = 0;
 };
 
 #endif // ARDUINO_SAMD_MKRWIFI1010

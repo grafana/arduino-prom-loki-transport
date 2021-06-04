@@ -38,17 +38,7 @@ bool MKRGSM1400Client::_begin() {
     _globalGSMPointer = _gsm;
     ArduinoBearSSL.onGetTime(getTime);
 
-    while (!_connected) {
-        DEBUG_PRINTLN("Connecting to GSM Network");
-        if ((_gsm->begin("") == GSM_READY) && (_gprs->attachGPRS(_apn, _apnLogin, _apnPass) == GPRS_READY)) {
-            _connected = true;
-            DEBUG_PRINTLN("GSM Connected Succesfully");
-        }
-        else {
-            DEBUG_PRINTLN("Failed to connect to GSM Network");
-            delay(2000);
-        }
-    }
+    _connect();
 
     return true;
 };
@@ -72,6 +62,10 @@ Client* MKRGSM1400Client::getClient() {
         return gsmClient;
     }
 
+}
+
+uint16_t MKRGSM1400Client::getConnectCount() {
+    return _connectCount;
 }
 
 int64_t MKRGSM1400Client::getTimeMillis() {
@@ -102,6 +96,7 @@ void MKRGSM1400Client::_connect() {
         if ((_gsm->begin("") == GSM_READY) && (_gprs->attachGPRS(_apn, _apnLogin, _apnPass) == GPRS_READY)) {
             _connected = true;
             DEBUG_PRINTLN("GSM Connected Succesfully");
+            _connectCount++;
         }
         else {
             DEBUG_PRINTLN("Failed to connect to GSM Network");

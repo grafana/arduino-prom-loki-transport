@@ -54,6 +54,10 @@ Client* MKRWIFI1010Client::getClient() {
     }
 }
 
+uint16_t MKRWIFI1010Client::getConnectCount(){
+    return _connectCount;
+};
+
 int64_t MKRWIFI1010Client::getTimeMillis() {
     //FIXME
     uint64_t epoch;
@@ -98,6 +102,7 @@ void MKRWIFI1010Client::_connect() {
     DEBUG_PRINTLN("Connected to wifi");
     DEBUG_PRINT("IP address: ");
     DEBUG_PRINTLN(WiFi.localIP());
+    _connectCount++;
 }
 
 bool MKRWIFI1010Client::disconnect() {

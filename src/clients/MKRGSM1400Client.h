@@ -18,6 +18,7 @@ public:
     bool disconnect();
     int64_t getTimeMillis();
     Client* getClient();
+    uint16_t getConnectCount();
 
 protected:
     bool _begin();
@@ -30,6 +31,7 @@ private:
     GPRS* _gprs;
     GSM* _gsm;
     GSMClient* _gsmClient;
+    uint16_t _connectCount = 0;
 };
 
 #endif // ARDUINO_SAMD_MKRGSM1400

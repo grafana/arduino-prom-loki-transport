@@ -20,6 +20,7 @@ public:
     bool disconnect();
     int64_t getTimeMillis();
     Client* getClient();
+    uint16_t getConnectCount();
 
 protected:
     bool _begin();
@@ -29,6 +30,7 @@ private:
     Client** _clients = nullptr;
     uint8_t _numClients = 0;
     void _connect();
+    uint16_t _connectCount = 0;
 };
 
 #endif // ESP32

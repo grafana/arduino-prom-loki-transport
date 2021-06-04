@@ -13,6 +13,7 @@ public:
     virtual bool disconnect() = 0;
     virtual int64_t getTimeMillis() = 0;
     virtual Client* getClient() = 0;
+    virtual uint16_t getConnectCount() = 0;
 
     char* errmsg;
 };
@@ -38,6 +39,7 @@ public:
     virtual bool disconnect() = 0;
     virtual int64_t getTimeMillis() = 0;
     virtual Client* getClient() = 0;
+    virtual uint16_t getConnectCount() = 0;
 
 protected:
     Stream* _debug = nullptr;
