@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: jpconstantineau/arduino-cli:latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Install Board Managers
+        run: |
+          ARDUINO_DIRECTORIES_USER=$GITHUB_WORKSPACE arduino-cli core install arduino:samd
+      - name: Build MKRWIFI1010
+        run: ARDUINO_DIRECTORIES_USER=$GITHUB_WORKSPACE arduino-cli compile --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+          
