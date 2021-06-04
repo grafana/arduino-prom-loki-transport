@@ -21,6 +21,9 @@ jobs:
       - name: Install Board Managers
         run: |
           arduino-cli core install arduino:samd
+      - name: Install Libraries
+        run: |
+          arduino-cli lib install ArduinoBearSSL
       - name: Build MKRWIFI1010
         run: |  
           arduino-cli config dump
