@@ -17,13 +17,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: ls $GITHUB_WORKSPACE
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      
+      - name: Install Board Managers
         run: |
-          arduino-cli --help
+          arduino-cli core install arduino:samd
+      - name: Build MKRWIFI1010
+        run: arduino-cli compile --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
           
