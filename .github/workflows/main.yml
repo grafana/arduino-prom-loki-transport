@@ -20,7 +20,12 @@ jobs:
       
       - name: Install Board Managers
         run: |
-          ARDUINO_DIRECTORIES_USER=$GITHUB_WORKSPACE arduino-cli core install arduino:samd
+          arduino-cli core install arduino:samd
+      - name: Install Libraries
+        run: |
+          arduino-cli lib install ArduinoBearSSL
       - name: Build MKRWIFI1010
-        run: ARDUINO_DIRECTORIES_USER=$GITHUB_WORKSPACE arduino-cli compile --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+        run: |  
+          arduino-cli config dump
+          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
           
