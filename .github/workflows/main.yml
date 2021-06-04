@@ -14,15 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: jpconstantineau/arduino-cli:latest
-      volumes:
-        - $GITHUB_WORKSPACE:/mnt
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: ls /mnt
+        run: ls $GITHUB_WORKSPACE
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
