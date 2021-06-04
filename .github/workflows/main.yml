@@ -26,6 +26,8 @@ jobs:
           arduino-cli lib install ArduinoBearSSL
       - name: Build MKRWIFI1010
         run: |  
-          arduino-cli config dump
-          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+          arduino-cli compile --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+      - name: Build MKRGSM1400
+        run: |  
+          arduino-cli compile --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrgsm1400 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
           
