@@ -139,7 +139,7 @@ free_pem_object_contents(pem_object* po)
 }
 
 
-br_x509_trust_anchor* certsToTrustAnchors(char* certs, size_t len, size_t* num) {
+br_x509_trust_anchor* certsToTrustAnchors(const char* certs, size_t len, size_t* num) {
 
     VECTOR(br_x509_certificate) cert_list = VEC_INIT;
     pem_object* pos;
@@ -153,7 +153,7 @@ br_x509_trust_anchor* certsToTrustAnchors(char* certs, size_t len, size_t* num) 
          * Check for a DER-encoded certificate.
          */
     if (looks_like_DER(certs, len)) {
-        xcs = xmalloc(2 * sizeof * xcs);
+        xcs = ymalloc(2 * sizeof * xcs);
         xcs[0].data = certs;
         xcs[0].data_len = len;
         xcs[1].data = NULL;
@@ -197,7 +197,7 @@ br_x509_trust_anchor* certsToTrustAnchors(char* certs, size_t len, size_t* num) 
     VEC_CLEAR(cert_list);
 
     br_x509_trust_anchor* tas;
-    tas = xmalloc(*num * sizeof * tas);
+    tas = ymalloc(*num * sizeof * tas);
 
     for (int i = 0; i < *num; i++) {
         tas[i] = *certificate_to_trust_anchor(&xcs[i]);

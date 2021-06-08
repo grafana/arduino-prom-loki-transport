@@ -26,7 +26,7 @@
 
 /* see brssl.h */
 void *
-xmalloc(size_t len)
+ymalloc(size_t len)
 {
 	void *buf;
 
@@ -57,7 +57,7 @@ xblobdup(const void *src, size_t len)
 {
 	void *buf;
 
-	buf = xmalloc(len);
+	buf = ymalloc(len);
 	memcpy(buf, src, len);
 	return buf;
 }
@@ -75,7 +75,7 @@ xpkeydup(const br_x509_pkey *pk)
 {
 	br_x509_pkey *pk2;
 
-	pk2 = xmalloc(sizeof *pk2);
+	pk2 = ymalloc(sizeof *pk2);
 	pk2->key_type = pk->key_type;
 	switch (pk->key_type) {
 	case BR_KEYTYPE_RSA:

@@ -30,7 +30,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "bearssl.h"
+#include <bearssl/bearssl.h>
 
 /*
  * malloc() wrapper:
@@ -38,10 +38,10 @@
  * -- If len is non-zero, and allocation fails, then an error message is
  *    printed and the process exits with an error code.
  */
-void *xmalloc(size_t len);
+void *ymalloc(size_t len);
 
 /*
- * free() wrapper, meant to release blocks allocated with xmalloc().
+ * free() wrapper, meant to release blocks allocated with ymalloc().
  */
 void xfree(void *buf);
 
@@ -264,7 +264,7 @@ extern const cipher_suite cipher_suites[];
  * Parse a list of cipher suite names. The names are comma-separated. If
  * one of the name is not recognised, or the list is empty, then an
  * appropriate error message is printed, and NULL is returned.
- * The returned array is allocated with xmalloc() and must be released
+ * The returned array is allocated with ymalloc() and must be released
  * by the caller. That array is terminated with a dummy entry whose 'name'
  * field is NULL. The number of entries (not counting the dummy entry)
  * is also written into '*num'.
@@ -320,7 +320,7 @@ int get_curve_by_name(const char *str);
 const char *hash_function_name(int id);
 
 /*
- * Read a file completely. The returned block is allocated with xmalloc()
+ * Read a file completely. The returned block is allocated with ymalloc()
  * and must be released by the caller.
  * If the file cannot be found or read completely, or is empty, then an
  * appropriate error message is written, and NULL is returned.
@@ -375,7 +375,7 @@ pem_object *decode_pem(const void *src, size_t len, size_t *num);
  * at all, then an error message is printed and NULL is returned.
  *
  * The returned array, and all referenced buffers, are allocated with
- * xmalloc() and must be released by the caller. The returned array
+ * ymalloc() and must be released by the caller. The returned array
  * ends with a dummy entry whose 'data' field is NULL.
  * The number of decoded certificates (not counting the dummy entry)
  * is written into '*num'.
@@ -390,7 +390,7 @@ void free_certificates(br_x509_certificate *certs, size_t num);
 
 /*
  * Interpret a certificate as a trust anchor. The trust anchor is
- * newly allocated with xmalloc() and the caller must release it.
+ * newly allocated with ymalloc() and the caller must release it.
  * On decoding error, an error message is printed, and this function
  * returns NULL.
  */
@@ -403,7 +403,7 @@ typedef VECTOR(br_x509_trust_anchor) anchor_list;
 
 /*
  * Release contents for a trust anchor (assuming they were dynamically
- * allocated with xmalloc()). The structure itself is NOT released.
+ * allocated with ymalloc()). The structure itself is NOT released.
  */
 void free_ta_contents(br_x509_trust_anchor *ta);
 

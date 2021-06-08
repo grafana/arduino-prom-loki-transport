@@ -8,6 +8,7 @@
 #include <time.h>
 #include <esp_sntp.h>
 #include <ArduinoBearSSL.h>
+#include "bear/BearHelper.h"
 
 class ESP32Client : public PLTransport
 {

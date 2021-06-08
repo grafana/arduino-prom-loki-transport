@@ -56,7 +56,7 @@ vector_expand(void *buf,
 			nlen = 8;
 		}
 	}
-	nbuf = xmalloc(nlen * esize);
+	nbuf = ymalloc(nlen * esize);
 	if (buf != NULL) {
 		memcpy(nbuf, buf, *len * esize);
 		xfree(buf);

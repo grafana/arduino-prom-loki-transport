@@ -23,7 +23,6 @@
  */
 
 #include "brssl.h"
-#include "bearssl.h"
 
 /* see brssl.h */
 const protocol_version protocol_versions[] = {
