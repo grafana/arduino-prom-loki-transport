@@ -26,8 +26,12 @@
 // Trying to run more than one SSL stack on the SAMD chips will crush the heap
 // However we can configures a small SSL buffer, this issues talks about this
 // https://github.com/arduino-libraries/ArduinoBearSSL/pull/12
-// It's not really clear to me how low this can go and what the implications are
-// It was still working for me at 512 (default is 8192)
+// I did a little bit of digging here and it seems like this value is used
+// to set the fragment size on the TLS connection which is an extension not every server supports
+// the smallest fragment size is 512 bytes, so in theory we could probably set this IBUF size to 512 bytes
+// but I set it to 512 + some other stuff based on what was already in the BearSSL lib.
+// Because the fragment size is an extension to TLS it's possible some servers won't support it and will send
+// data larger than this buffer size causing problems/failures....
 #if defined(ARDUINO_ARCH_SAMD)
 #define BEAR_SSL_CLIENT_IBUF_SIZE 512 + 85 + 325
 #endif
