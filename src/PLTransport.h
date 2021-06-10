@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <Client.h>
-#include <ArduinoBearSSL.h>
 #include "PLDebug.h"
 
 class IPromLokiTransport {
@@ -23,7 +22,7 @@ class PLTransport : public IPromLokiTransport {
 public:
     PLTransport(uint8_t maxClients = 10);
     void setUseTls(bool useTls);
-    void setCerts(const br_x509_trust_anchor* myTAs, int myNumTAs);
+    void setCerts(const char* certs, size_t len);
     void setWifiSsid(const char* wifiSsid);
     void setWifiPass(const char* wifiPass);
     void setApn(const char* apn);
@@ -45,8 +44,8 @@ protected:
     Stream* _debug = nullptr;
 
     bool _useTls;
-    const br_x509_trust_anchor* _TAs;
-    uint8_t _numTAs;
+    const char* _certs;
+    size_t _certLen;
     const char* _wifiSsid;
     const char* _wifiPass;
     const char* _apn;

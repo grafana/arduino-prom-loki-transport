@@ -1,20 +1,17 @@
-#ifndef ESP32Client_h
-#define ESP32Client_h
+#ifndef ESP8266Client_h
+#define ESP8266Client_h
 
-#if defined(ESP32)
+#if defined(ESP8266)
 
 #include "PLTransport.h"
-#include <WiFi.h>
+#include <ESP8266WiFi.h>
 #include <time.h>
-#include <esp_sntp.h>
-#include <ArduinoBearSSL.h>
-#include "bear/BearHelper.h"
 
-class ESP32Client : public PLTransport
+class ESP8266Client : public PLTransport
 {
 public:
-    ESP32Client();
-    ~ESP32Client();
+    ESP8266Client();
+    ~ESP8266Client();
 
     //IPromLokiTransport
     bool checkAndReconnectConnection();
@@ -34,6 +31,6 @@ private:
     uint16_t _connectCount = 0;
 };
 
-#endif // ESP32
+#endif // ESP8266
 
-#endif // ESP32Client_h
+#endif // ESP8266Client_h

@@ -5,9 +5,9 @@ PLTransport::PLTransport(uint8_t maxClients) : _maxClients(maxClients){};
 void PLTransport::setUseTls(bool useTls) {
     _useTls = useTls;
 };
-void PLTransport::setCerts(const br_x509_trust_anchor* myTAs, int myNumTAs) {
-    _TAs = myTAs;
-    _numTAs = myNumTAs;
+void PLTransport::setCerts(const char* certs, size_t len) {
+    _certs = certs;
+    _certLen = len;
 };
 void PLTransport::setWifiSsid(const char* wifiSsid) {
     _wifiSsid = wifiSsid;

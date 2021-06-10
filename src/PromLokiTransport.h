@@ -8,6 +8,10 @@
 #include "clients/ESP32Client.h"
 typedef ESP32Client PromLokiTransport;
 
+#elif defined(ESP8266)
+
+#error "ESP8266 is currently unsupported, it's proving too difficult to wokr around the 4k stack size limitation at the moment."
+
 #elif defined(ARDUINO_SAMD_MKRGSM1400)
 
 #include "clients/MKRGSM1400Client.h"
