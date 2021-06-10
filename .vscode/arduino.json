@@ -1,5 +1,0 @@
-{
-    "board": "esp32:esp32:pico32",
-    "sketch": "examples\\prom_loki_transport_01\\prom_loki_transport_01.ino",
-    "configuration": "PartitionScheme=default,UploadSpeed=921600,DebugLevel=none"
-}
