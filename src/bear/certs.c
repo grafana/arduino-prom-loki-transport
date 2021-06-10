@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#if !defined(ESP8266)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -235,3 +237,5 @@ x509_noanchor_init(x509_noanchor_context *xwc, const br_x509_class **inner)
 	xwc->vtable = &x509_noanchor_vtable;
 	xwc->inner = inner;
 }
+
+#endif // ESP8266

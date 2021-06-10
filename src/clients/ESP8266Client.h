@@ -5,8 +5,7 @@
 
 #include "PLTransport.h"
 #include <ESP8266WiFi.h>
-#include <NTPClient.h>
-#include <WiFiUdp.h>
+#include <time.h>
 
 class ESP8266Client : public PLTransport
 {
@@ -27,8 +26,6 @@ protected:
 
 private:
     Client** _clients = nullptr;
-    WiFiUDP* _udp = nullptr;
-    NTPClient* _ntpClient = nullptr;
     uint8_t _numClients = 0;
     void _connect();
     uint16_t _connectCount = 0;

@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#if !defined(ESP8266)
+
 #include "brssl.h"
 
 /* see brssl.h */
@@ -1045,3 +1047,5 @@ hash_function_name(int id)
 		return "unknown";
 	}
 }
+
+#endif // ESP8266

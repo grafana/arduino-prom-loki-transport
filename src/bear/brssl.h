@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#if !defined(ESP8266)
+
 #ifndef BRSSL_H__
 #define BRSSL_H__
 
@@ -563,5 +565,7 @@ int do_twrch(int argc, char *argv[]);
  * Command-line arguments start _after_ the command name.
  */
 int do_impl(int argc, char *argv[]);
+
+#endif // ESP8266
 
 #endif

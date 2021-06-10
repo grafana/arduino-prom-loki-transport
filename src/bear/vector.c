@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#if !defined(ESP8266)
+
 #include "brssl.h"
 
 /*
@@ -64,3 +66,5 @@ vector_expand(void *buf,
 	*len = nlen;
 	return nbuf;
 }
+
+#endif // ESP8266

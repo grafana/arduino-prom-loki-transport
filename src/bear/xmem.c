@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#if !defined(ESP8266)
+
 #include "brssl.h"
 
 /* see brssl.h */
@@ -118,3 +120,5 @@ xfreepkey(br_x509_pkey *pk)
 		xfree(pk);
 	}
 }
+
+#endif // ESP8266

@@ -30,3 +30,11 @@ Note: Client is the Arduino Client interface
 * ESP32
 * MKRWIFI1010
 * MKRGSM1400
+
+## Not Supported Boards :(
+
+* ESP8266: I've tried to make this work but it seems really finicky because of the 4k stack limitation, in some circumstances it can work but not with TLS support and the Prometheus library has a hard time as well because the Prometheus proto has several layers of nested objects which leads to a lot of function calls and blowing up the stack.  I don't really think it's going to be worth the time to try to get this to work but I'm not gonna rip out the code and work done so far.
+
+## Licensing Note
+
+This library directly includes code from the [BearSSL](https://bearssl.org/) project in the `src/bear` directory, the files included from that project are available under the MIT license and maintain the copyright of the original author. They are mostly included unchanged with a few exceptions such as renaming `xmalloc` to `ymalloc` to avoid conflicts with an existing `xmalloc` function in another library.

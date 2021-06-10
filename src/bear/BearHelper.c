@@ -1,3 +1,6 @@
+
+#if !defined(ESP8266)
+
 #include "BearHelper.h"
 
 int
@@ -206,3 +209,5 @@ br_x509_trust_anchor* certsToTrustAnchors(const char* certs, size_t len, size_t*
     return tas;
 
 }
+
+#endif // ESP8266
