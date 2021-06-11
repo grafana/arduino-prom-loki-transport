@@ -30,7 +30,7 @@ unsigned long getTime() {
 bool MKRGSM1400Client::_begin() {
     //TODO error check required fields
 
-    if (_TAs && _numTAs > 0 && !_useTls) {
+    if (_certs && _certLen > 0 && !_useTls) {
         errmsg = "setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
         return false;
     }
@@ -53,7 +53,11 @@ Client* MKRGSM1400Client::getClient() {
     _clients[_numClients] = gsmClient;
     _numClients++;
     if (_useTls) {
-        BearSSLClient* sslClient = new BearSSLClient(*gsmClient, _TAs, _numTAs);
+        size_t numTas = 0;
+        
+        br_x509_trust_anchor* tas = certsToTrustAnchors(_certs, _certLen, &numTas);
+        
+        BearSSLClient* sslClient = new BearSSLClient(*gsmClient, tas, numTas);
         _clients[_numClients] = sslClient;
         _numClients++;
         return sslClient;

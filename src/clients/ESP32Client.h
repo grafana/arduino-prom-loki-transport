@@ -10,8 +10,7 @@
 #include <ArduinoBearSSL.h>
 #include "bear/BearHelper.h"
 
-class ESP32Client : public PLTransport
-{
+class ESP32Client : public PLTransport {
 public:
     ESP32Client();
     ~ESP32Client();
@@ -25,7 +24,7 @@ public:
 
 protected:
     bool _begin();
-    
+
 
 private:
     Client** _clients = nullptr;
