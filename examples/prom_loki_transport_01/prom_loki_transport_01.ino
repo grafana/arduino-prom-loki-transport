@@ -1,8 +1,10 @@
 
 #include <PromLokiTransport.h>
 
+PromLokiTransport transport;
+
 void setup() {
-    PromLokiTransport transport;
+    
 }
 
 void loop() {
