@@ -4,7 +4,9 @@
 #if defined(ARDUINO_SAMD_MKRWIFI1010)
 
 #include "PLTransport.h"
+#include <WiFiNINA.h>
 #include <ArduinoBearSSL.h>
+#include "bear/BearHelper.h"
 
 
 class MKRWIFI1010Client : public PLTransport {
@@ -28,7 +30,7 @@ private:
     int _status;
     bool _connected;
     void _connect();
-    uint16_t reconnectCount = 0;
+    uint16_t _connectCount = 0;
 };
 
 #endif // ARDUINO_SAMD_MKRWIFI1010

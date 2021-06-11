@@ -21,7 +21,7 @@ MKRWIFI1010Client::~MKRWIFI1010Client() {
 bool MKRWIFI1010Client::_begin() {
     //TODO error check required fields
 
-    if (_TAs && _numTAs > 0 && !_useTls) {
+    if (_certs && _certLen > 0 && !_useTls) {
         errmsg = "setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
         return false;
     }
@@ -44,7 +44,11 @@ Client* MKRWIFI1010Client::getClient() {
     _clients[_numClients] = wifiClient;
     _numClients++;
     if (_useTls) {
-        BearSSLClient* sslClient = new BearSSLClient(*wifiClient, _TAs, _numTAs);
+        size_t numTas = 0;
+        
+        br_x509_trust_anchor* tas = certsToTrustAnchors(_certs, _certLen, &numTas);
+        
+        BearSSLClient* sslClient = new BearSSLClient(*wifiClient, tas, numTas);
         _clients[_numClients] = sslClient;
         _numClients++;
         return sslClient;

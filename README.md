@@ -28,8 +28,8 @@ Note: Client is the Arduino Client interface
 
 * **ArduinoBearSSL** Needed for all supported boards
 * **ArduinoECCX08** Only needed for MKR boards, however might still be needed to compile for others
-* **SnappyProto** Needed for all boards
 * **MKRGSM** Only needed for MKRGSM1400
+* **WiFiNINA** Only needed for the MKRWIFI1010
 
 ## Supported Boards
 
