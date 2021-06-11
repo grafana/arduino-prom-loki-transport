@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: slimbean/arduino-cli:latest
+      image: slimbean/arduino-cli-complete:latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -26,13 +26,14 @@ jobs:
       - name: Install Libraries
         run: |
           arduino-cli lib install ArduinoBearSSL MKRGSM WiFiNINA
-      - name: Build MKRWIFI1010
-        run: |  
-          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
-      - name: Build MKRGSM1400
-        run: |  
-          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrgsm1400 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
       - name: Build ESP32 Pico
         run: |  
           arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn esp32:esp32:pico32 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+      - name: Build MKRGSM1400
+        run: |  
+          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrgsm1400 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+      - name: Build MKRWIFI1010
+        run: |  
+          arduino-cli compile -v --libraries $GITHUB_WORKSPACE --fqbn arduino:samd:mkrwifi1010 $GITHUB_WORKSPACE/examples/prom_loki_transport_01/prom_loki_transport_01.ino
+      
           
