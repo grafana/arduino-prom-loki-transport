@@ -157,7 +157,7 @@ br_x509_trust_anchor* certsToTrustAnchors(const char* certs, size_t len, size_t*
          */
     if (looks_like_DER(certs, len)) {
         xcs = ymalloc(2 * sizeof * xcs);
-        xcs[0].data = certs;
+        xcs[0].data = (unsigned char*)certs;
         xcs[0].data_len = len;
         xcs[1].data = NULL;
         xcs[1].data_len = 0;
