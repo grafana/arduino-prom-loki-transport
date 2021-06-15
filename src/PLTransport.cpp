@@ -38,7 +38,7 @@ bool PLTransport::begin() {
     bool res = _begin();
     if (!res) {
         if (!errmsg) {
-            errmsg = "failed to init the client, enable debug logging for more info";
+            errmsg = (char*)"failed to init the client, enable debug logging for more info";
         }
         return false;
     }
