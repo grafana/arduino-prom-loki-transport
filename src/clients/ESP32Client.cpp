@@ -22,7 +22,7 @@ bool ESP32Client::_begin() {
     //TODO error check required fields
 
     if (_certs && _certLen > 0 && !_useTls) {
-        errmsg = "setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
+        errmsg = (char*)"setUseTls(true) was set but no certificates were provided via setCerts. Please provide certificates or setUseTls(false)";
         return false;
     }
 
@@ -52,7 +52,7 @@ bool ESP32Client::_begin() {
 Client* ESP32Client::getClient() {
 
     if (_numClients >= _maxClients) {
-        errmsg = "Too many clients requested, increase maxClients";
+        errmsg = (char*)"Too many clients requested, increase maxClients";
         return nullptr;
     }
 

@@ -51,7 +51,7 @@ protected:
     const char* _apn;
     const char* _apnLogin;
     const char* _apnPass;
-    char* _ntpServer = "pool.ntp.org";
+    char* _ntpServer = (char*)"pool.ntp.org";
 
     uint8_t _maxClients;
 
